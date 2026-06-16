@@ -6,8 +6,8 @@ sys.path.append(aries_path)
 from frontend import *
 
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
-I, J, K = 1024, 1024, 1024
-TI, TJ, TK = 64, 64, 64
+I, J, K = 32, 32, 32
+TI, TJ, TK = 32, 32, 32
 ii, ij, ik = 4, 4, 8
 bi, bj, bk = TI//ii, TJ//ij, TK//ik
 
@@ -51,7 +51,7 @@ def top(A: bfloat16[I, K], B: bfloat16[K, J], C: bfloat16[I, J]):
     return gemm_task, C
  
 # Set the project dir and template dir
-prj_dir= cur_dir + '/my_project_bf16'
+prj_dir= cur_dir + '/my_project_32'
 temp_dir= aries_path + '/templates'
 module = sys.modules[__name__]
     
@@ -65,8 +65,8 @@ D = np.matmul(A, B)
 
 aries.gen_sim([A, B, D])
 sch = Schedule(gemm_task)
-sch.parallel(gemm_task, [4, 4, 1])
+sch.parallel(gemm_task, [1, 1, 1])
 sch.l2buffer(gemm_task, [1, 1, 1])
 sch.to("NPU")
 sch.build(module, prj_dir, temp_dir)
-sch.compile(aries_path, prj_dir)
+# sch.compile skipped: build only

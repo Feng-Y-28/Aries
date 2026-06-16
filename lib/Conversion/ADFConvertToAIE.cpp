@@ -1154,7 +1154,7 @@ private:
     auto context = builder.getContext();
     auto& destBlock = mod.getRegion().front();
     builder.setInsertionPointToStart(&destBlock);
-    auto deviceAttr = AIEDeviceAttr::get(context, AIEDevice::npu1_4col);
+    auto deviceAttr = AIEDeviceAttr::get(context, AIEDevice::npu2); // ARIES-repro: XDNA2/aie2p
     device = builder.create<DeviceOp>(loc, deviceAttr);
     auto& entryBlock = device.getRegion().emplaceBlock();
     DeviceOp::ensureTerminator(device.getBodyRegion(), builder, loc);

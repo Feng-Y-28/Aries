@@ -11,4 +11,5 @@ externals
 aries/bin
 aries/lib
 project
-my_project
+my_project*/
+example_new/example_NPU/example_gemm/aie2p_run/

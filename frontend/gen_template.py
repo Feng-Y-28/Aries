@@ -58,7 +58,7 @@ def gen_make_npu(sub_dir, template_dir, func, krlName):
     template = environment.get_template(file_name)
     file_dst = "Makefile"
     dstName = sub_dir / file_dst
-    kernel_dir = template_dir / Path("aie2/origin/common")
+    kernel_dir = template_dir / Path("aie2p/origin/common")
     content = template.render(
         kernel_dir = kernel_dir,
         func = func,

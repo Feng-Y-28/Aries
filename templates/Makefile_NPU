@@ -12,7 +12,7 @@ all: kernel aie host copyhost
 kernel: ${kernel_obj}
 ${kernel_obj}: ${EXTERN_KERNEL}
 	mkdir -p ${@D}
-	${PEANO_INSTALL_DIR}/bin/clang++ -O2 -v -std=c++20 --target=aie2-none-unknown-elf -Wno-parentheses -Wno-attributes -Wno-macro-redefined -DNDEBUG -I {{kernel_dir}} -I ${MLIR_AIE_INSTALL_DIR}/include -c $< -o ${@}
+	${PEANO_INSTALL_DIR}/bin/clang++ -O2 -v -std=c++20 --target=aie2p-none-unknown-elf -Wno-parentheses -Wno-attributes -Wno-macro-redefined -DNDEBUG -I {{kernel_dir}} -I ${MLIR_AIE_INSTALL_DIR}/include -c $< -o ${@}
 
 aie: ${xclbin_target}
 ${xclbin_target}: ${mlir_target} ${kernel_obj}
